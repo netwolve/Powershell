@@ -2,6 +2,14 @@
 Get-WinEvent -FilterHashtable @{LogName='Security';ID=4625} -MaxEvents 10
 
 
+#Find all events with ID 4625 (ID=4625) in the Windows security log (LogName="Security") for the last 24 hours (StartTime=((Get-Date).AddDays(-1).Date), ending at the current time (Get-Date).
+$events = Get-WinEvent -FilterHashTable @{LogName="Security";ID=4625;StartTime=((Get-Date).AddDays(-1));EndTime=(Get-Date)}
+$events.count
+
+
+
+
+
 
 
 
