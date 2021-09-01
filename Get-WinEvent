@@ -49,6 +49,36 @@ $events | ForEach-Object {
 
 
 
+#Use Get-WinEvent to access the properties of each logged instance of Event ID 4625
+$events = Get-WinEvent -FilterHashTable @{LogName="Security";ID=4625;StartTime=((Get-Date).AddDays(-1).Date);EndTime=(Get-Date)}
+## Create the numerical value to string "map"
+$logonTypes = @{
+    [uint32]2 = "Interactive"
+    [uint32]3 = "Network"
+    [uint32]4 = "Batch"
+    [uint32]5 = "Service"
+    [uint32]7 = "Unlock"
+    [uint32]8 = "NetworkCleartext"
+    [uint32]9 = "NewCredentials"
+    [uint32]10 = "RemoteInteractive"
+    [uint32]11 = "CachedInteractive"
+}
+## Begin processing each object in the $events array
+$events | ForEach-Object {
+    ## Look up the numerical value in the hashtable
+    $logonType = $logonTypes[$_.properties[10].value] 
+    #Create custom PowerShell object to output relevant event properties 
+    [PSCustomObject]@{     
+        TimeCreated = $_.TimeCreated     
+        TargetUserName = $_.properties[5].value     
+        LogonType = $logonType     
+        WorkstationName = $_.properties[13].value     
+        IpAddress = $_.properties[19].value 
+    }
+} | Group-Object -Property TargetUserName | Sort-Object -Property Count -Descending
+
+
+
 
 
 
