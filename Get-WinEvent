@@ -1,0 +1,14 @@
+#Filter the security log for the first 10 instances of Event ID 4625
+Get-WinEvent -FilterHashtable @{LogName='Security';ID=4625} -MaxEvents 10
+
+
+
+
+
+
+
+
+
+
+
+
