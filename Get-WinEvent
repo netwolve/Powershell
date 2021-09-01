@@ -6,6 +6,14 @@ Get-WinEvent -FilterHashtable @{LogName='Security';ID=4625} -MaxEvents 10
 $events = Get-WinEvent -FilterHashTable @{LogName="Security";ID=4625;StartTime=((Get-Date).AddDays(-1));EndTime=(Get-Date)}
 $events.count
 
+#Extract TargetUserName, LogonType, WorkstationName, and IpAddress event properties from all instances of Event ID 4625 in the last 24 hours.
+ $events | ForEach-Object {
+     ## Reference the properties object property
+     ## Only return the value of indexes 5,10,13 and 19 from the properties array
+     ## Concatenate all values together by joining them with a comma
+     $_.properties[5,10,13,19].value -join ", "
+ }
+
 
 
 
