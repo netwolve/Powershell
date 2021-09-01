@@ -1,0 +1,46 @@
+
+
+Get-Process -Name brave | ForEach-Object { Get-NetTCPConnection -OwningProcess $_.Id -ErrorAction SilentlyContinue }
+
+
+(Get-Process -Name 'Calculator').CPU
+
+$cpu = (Get-Process -Name 'Calculator').CPU
+[math]::Round($cpu,2)
+
+(Get-Process -Name 'Calculator').VM
+$ProcessMemoryGB = (Get-Process -Name 'Calculator').VM
+$ProcessMemoryGB / 1GB
+
+# Use the .NET Math type Round method
+[Math]::Round($ProcessMemoryGB / 1GB)
+
+
+
+(Get-Process -Name 'Calculator').Path
+
+
+Get-Process -Name 'Calculator' -IncludeUserName
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
