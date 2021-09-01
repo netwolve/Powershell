@@ -1,0 +1,21 @@
+Get-NetTCPConnection
+
+Get-NetTCPConnection | Select-Object -Property *
+
+Get-NetTCPConnection -State Listen
+
+Get-Process -Id 692
+
+
+Get-NetTCPConnection | Select-Object -Property *,@{'Name' = 'ProcessName';'Expression'={(Get-Process -Id $_.OwningProcess).Name}}
+
+Get-NetTCPConnection -State Listen,Established
+
+Get-NetTCPConnection -RemotePort 443
+
+
+
+
+
+
+
